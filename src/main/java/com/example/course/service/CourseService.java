@@ -19,13 +19,18 @@ public class CourseService {
     @Autowired
     TimeSlotRepository timeSlotRepository;
 
+    @Autowired
+    UserService userService;
+
     @Transactional
-    public void add_course(CourseInsertDTO courseInsertDTO){
+    public Course add_course(CourseInsertDTO courseInsertDTO){
         Course course=new Course();
         course.setElective(courseInsertDTO.getElective());
         course.setLocation(courseInsertDTO.getLocation());
         course.setTeacher(courseInsertDTO.getTeacher());
         Course savedCourse = courseRepository.save(course);
+        savedCourse.setColor(savedCourse.getCourseId()%10);
+        savedCourse = courseRepository.save(course);
 
         String [] WeekList = courseInsertDTO.getWeekList().split(",");
 
@@ -40,5 +45,8 @@ public class CourseService {
 
             timeSlotRepository.save(timeSlot);
         }
+        userService.addCourseToUser(courseInsertDTO.getUserId(), savedCourse.getCourseId());
+
+        return savedCourse;
     }
 }

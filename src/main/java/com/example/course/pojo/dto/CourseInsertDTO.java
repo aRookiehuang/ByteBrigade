@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 
 public class CourseInsertDTO {
 
+    private String userId;
+
     private String teacher;
 
     private String location;
@@ -64,10 +66,19 @@ public class CourseInsertDTO {
         this.weekList = weekList;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "CourseInsertDTO{" +
-                "teacher='" + teacher + '\'' +
+                "userId='" + userId + '\'' +
+                ", teacher='" + teacher + '\'' +
                 ", location='" + location + '\'' +
                 ", isElective=" + isElective +
                 ", weekList='" + weekList + '\'' +

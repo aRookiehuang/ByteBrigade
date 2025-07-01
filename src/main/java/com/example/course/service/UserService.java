@@ -16,6 +16,8 @@ public class UserService
     public User get(String userid){
         return userRepository.findById(userid).orElseThrow(()->new IllegalArgumentException("找不到用户"));
     }
-
+    public User getByUserIdAndPassword(String userId, String password) {
+        return userRepository.findByUserIdAndPassword(userId, password);
+    }
 
 }

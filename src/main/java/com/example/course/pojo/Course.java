@@ -29,7 +29,7 @@ public class Course {
     @Column(name = "isElective")
     private Boolean isElective; // 使用Boolean类型映射smallint，更符合Java习惯
 
-    // --- 关系映射 ---
+    // --- 关系映射 ---1,2,3,4
 
     // 一对多关系：一门课程有多个时间段 (TimeSlot)
     @OneToMany(

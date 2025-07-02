@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "TimeSlot", uniqueConstraints = {
         // 对应 SQL 中的 UNIQUE (week, dayOfweek, period)
-        @UniqueConstraint(columnNames = {"week", "dayOfweek", "period"})
+        @UniqueConstraint(columnNames = {"course_id","week", "dayOfweek", "period"})
 })
 public class TimeSlot {
 

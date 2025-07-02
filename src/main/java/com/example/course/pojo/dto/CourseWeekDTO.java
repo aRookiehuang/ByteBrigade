@@ -4,6 +4,7 @@ import java.util.List;
 
 public class CourseWeekDTO {
     private Integer courseId;
+    private String coursename;
     private String teacher;
     private String location;
     private int color;
@@ -12,6 +13,22 @@ public class CourseWeekDTO {
 
     // 构造函数、Getters 和 Setters
     public CourseWeekDTO() {}
+
+    public String getCoursename() {
+        return coursename;
+    }
+
+    public void setCoursename(String coursename) {
+        this.coursename = coursename;
+    }
+
+    public Boolean getElective() {
+        return isElective;
+    }
+
+    public void setElective(Boolean elective) {
+        isElective = elective;
+    }
 
     public Integer getCourseId() {
         return courseId;

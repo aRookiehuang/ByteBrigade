@@ -29,4 +29,11 @@ public class CourseController {
         List<CourseWeekDTO> courses = courseService.getCoursesByWeek(userId, week);
         return ResponseMessage.success(courses);
     }
+    @DeleteMapping("/delete/{userId}/{courseId}")
+    public ResponseMessage<String> deleteUserCourse(
+            @PathVariable String userId,
+            @PathVariable Integer courseId) {
+        courseService.deleteUserCourse(userId, courseId);
+        return ResponseMessage.success("课程删除成功");
+    }
 }

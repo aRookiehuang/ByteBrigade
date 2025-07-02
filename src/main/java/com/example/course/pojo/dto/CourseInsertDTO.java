@@ -1,45 +1,63 @@
 package com.example.course.pojo.dto;
 
-import jakarta.persistence.Column;
+import java.util.List;
 
 public class CourseInsertDTO {
-
     private String userId;
-
+    private String course_name;
     private String teacher;
-
     private String location;
+    private Boolean elective;
+    private List<TimeSlotRequestDTO> timeSlots;
 
-    private Boolean isElective;
+    // 内部类定义时间段
+    public static class TimeSlotRequestDTO {
+        private String weekList;
+        private int dayOfweek;
+        private int period;
 
-    private String weekList;
+        public String getWeekList() {
+            return weekList;
+        }
 
-    private int period;
+        public void setWeekList(String weekList) {
+            this.weekList = weekList;
+        }
 
-    private int day_ofweek;
+        public int getDayOfweek() {
+            return dayOfweek;
+        }
 
-    public int getPeriod() {
-        return period;
+        public void setDayOfweek(int dayOfweek) {
+            this.dayOfweek = dayOfweek;
+        }
+
+        public int getPeriod() {
+            return period;
+        }
+
+        public void setPeriod(int period) {
+            this.period = period;
+        }
     }
 
-    public void setPeriod(int period) {
-        this.period = period;
+    // Getters and Setters
+
+
+    public String getCourse_name() {
+        return course_name;
     }
 
-    public int getDay_ofweek() {
-        return day_ofweek;
+    public void setCourse_name(String course_name) {
+        this.course_name = course_name;
     }
 
-    public void setDay_ofweek(int day_ofweek) {
-        this.day_ofweek = day_ofweek;
+    public String getUserId() {
+        return userId;
     }
 
-    public Boolean getElective() {
-        return isElective;
-    }
-
-    public void setElective(Boolean elective) {
-        isElective = elective;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getTeacher() {
@@ -58,32 +76,19 @@ public class CourseInsertDTO {
         this.location = location;
     }
 
-    public String getWeekList() {
-        return weekList;
+    public Boolean getElective() {
+        return elective;
     }
 
-    public void setWeekList(String weekList) {
-        this.weekList = weekList;
+    public void setElective(Boolean elective) {
+        this.elective = elective;
     }
 
-    public String getUserId() {
-        return userId;
+    public List<TimeSlotRequestDTO> getTimeSlots() {
+        return timeSlots;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    @Override
-    public String toString() {
-        return "CourseInsertDTO{" +
-                "userId='" + userId + '\'' +
-                ", teacher='" + teacher + '\'' +
-                ", location='" + location + '\'' +
-                ", isElective=" + isElective +
-                ", weekList='" + weekList + '\'' +
-                ", period=" + period +
-                ", day_ofweek=" + day_ofweek +
-                '}';
+    public void setTimeSlots(List<TimeSlotRequestDTO> timeSlots) {
+        this.timeSlots = timeSlots;
     }
 }

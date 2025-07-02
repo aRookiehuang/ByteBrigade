@@ -17,6 +17,9 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer courseId;
 
+    @Column(name="course_name")
+    private String coursename;
+
     @Column(name = "teacher")
     private String teacher;
 
@@ -102,5 +105,13 @@ public class Course {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public String getCoursename() {
+        return coursename;
+    }
+
+    public void setCoursename(String coursename) {
+        this.coursename = coursename;
     }
 }

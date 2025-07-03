@@ -1,5 +1,6 @@
 package com.example.course.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
@@ -31,6 +32,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"), // 指定本类在中间表中的外键列
             inverseJoinColumns = @JoinColumn(name = "course_id") // 指定对方类在中间表中的外键列
     )
+    @JsonIgnore
     private Set<Course> courses = new HashSet<>();
 
     // --- 构造函数, Getters 和 Setters ---

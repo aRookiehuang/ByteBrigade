@@ -74,7 +74,7 @@ public class CourseService {
         dto.setTeacher(course.getTeacher());
         dto.setLocation(course.getLocation());
         dto.setColor(course.getColor());
-        dto.setIsElective(course.getElective());
+        dto.setElective(course.getElective());
 
         // 只包含指定周的时间段
         List<TimeSlotDTO> timeSlotDTOs = course.getTimeSlots().stream()
@@ -130,4 +130,22 @@ public class CourseService {
             courseRepository.delete(course);
         }
     }
+    @Transactional
+    public void deleteTimeSlot(Integer courseId, int week, int dayOfweek, int period) {
+        // 构造复合主键
+        TimeSlotId timeSlotId = new TimeSlotId();
+        timeSlotId.setCourseId(courseId);
+        timeSlotId.setWeek(week);
+        timeSlotId.setDayOfweek(dayOfweek);
+        timeSlotId.setPeriod(period);
+
+        // 检查时间段是否存在
+        if (!timeSlotRepository.existsById(timeSlotId)) {
+            throw new RuntimeException("指定的时间段不存在");
+        }
+
+        // 删除时间段
+        timeSlotRepository.deleteById(timeSlotId);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.example.course.pojo;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -19,6 +20,7 @@ public class TimeSlot {
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("courseId") // 将本实体中的 course 属性映射到复合主键 id 中的 courseId 字段
     @JoinColumn(name = "course_id") // 指定数据库中的外键列名
+    @JsonIgnore
     private Course course;
 
     // --- 构造函数, Getters 和 Setters ---

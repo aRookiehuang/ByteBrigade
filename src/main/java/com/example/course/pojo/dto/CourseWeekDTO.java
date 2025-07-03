@@ -11,25 +11,6 @@ public class CourseWeekDTO {
     private Boolean isElective;
     private List<TimeSlotDTO> timeSlots;
 
-    // 构造函数、Getters 和 Setters
-    public CourseWeekDTO() {}
-
-    public String getCoursename() {
-        return coursename;
-    }
-
-    public void setCoursename(String coursename) {
-        this.coursename = coursename;
-    }
-
-    public Boolean getElective() {
-        return isElective;
-    }
-
-    public void setElective(Boolean elective) {
-        isElective = elective;
-    }
-
     public Integer getCourseId() {
         return courseId;
     }
@@ -44,6 +25,14 @@ public class CourseWeekDTO {
 
     public void setTeacher(String teacher) {
         this.teacher = teacher;
+    }
+
+    public String getCoursename() {
+        return coursename;
+    }
+
+    public void setCoursename(String coursename) {
+        this.coursename = coursename;
     }
 
     public String getLocation() {
@@ -62,19 +51,19 @@ public class CourseWeekDTO {
         this.color = color;
     }
 
-    public Boolean getIsElective() {
-        return isElective;
-    }
-
-    public void setIsElective(Boolean isElective) {
-        this.isElective = isElective;
-    }
-
     public List<TimeSlotDTO> getTimeSlots() {
         return timeSlots;
     }
 
     public void setTimeSlots(List<TimeSlotDTO> timeSlots) {
         this.timeSlots = timeSlots;
+    }
+
+    public Boolean getElective() {
+        return isElective;
+    }
+
+    public void setElective(Boolean elective) {
+        isElective = elective;
     }
 }

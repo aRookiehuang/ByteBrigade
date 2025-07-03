@@ -1,5 +1,6 @@
 package com.example.course.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -44,6 +45,7 @@ public class Course {
 
     // 多对多关系：一门课程可以被多个用户选择 (这是User类中多对多关系的另一端)
     @ManyToMany(mappedBy = "courses") // "courses" 是 User 类中 Set<Course> 属性的名称
+    @JsonIgnore
     private Set<User> users = new HashSet<>();
 
     // --- 构造函数, Getters 和 Setters ---

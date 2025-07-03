@@ -3,6 +3,7 @@ package com.example.course.controller;
 import com.example.course.pojo.Course;
 import com.example.course.pojo.ResponseMessage;
 import com.example.course.pojo.dto.CourseInsertDTO;
+import com.example.course.pojo.dto.CourseUpdateDTO;
 import com.example.course.pojo.dto.CourseWeekDTO;
 import com.example.course.service.CourseService;
 import com.example.course.service.ExcelService;
@@ -36,6 +37,17 @@ public class CourseController {
         List<CourseWeekDTO> courses = courseService.getCoursesByWeek(userId, week);
         return ResponseMessage.success(courses);
     }
+    @PutMapping("/{courseId}")
+    public ResponseMessage<Course> updateCourse(
+            @PathVariable Integer courseId,
+            @RequestBody CourseUpdateDTO updateDTO) {
+        try {
+            Course updatedCourse = courseService.updateCourse(courseId, updateDTO);
+            return ResponseMessage.success(updatedCourse);
+        } catch (RuntimeException e) {
+            return new ResponseMessage<>(400, e.getMessage(), null);
+        }
+    }
     @DeleteMapping("/delete/{userId}/{courseId}")
     public ResponseMessage<String> deleteUserCourse(
             @PathVariable String userId,
@@ -52,6 +64,7 @@ public class CourseController {
         courseService.deleteTimeSlot(courseId, week, dayOfweek, period);
         return ResponseMessage.success("时间段删除成功");
     }
+
 
     @PostMapping("/import")
     public ResponseMessage<Map<String, Object>> importCourses(

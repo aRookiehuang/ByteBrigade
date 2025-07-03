@@ -5,6 +5,7 @@ import com.example.course.pojo.TimeSlot;
 import com.example.course.pojo.TimeSlotId;
 import com.example.course.pojo.User;
 import com.example.course.pojo.dto.CourseInsertDTO;
+import com.example.course.pojo.dto.CourseUpdateDTO;
 import com.example.course.pojo.dto.CourseWeekDTO;
 import com.example.course.pojo.dto.TimeSlotDTO;
 import com.example.course.repository.CourseRepository;
@@ -147,5 +148,25 @@ public class CourseService {
         // 删除时间段
         timeSlotRepository.deleteById(timeSlotId);
     }
+    @Transactional
+    public Course updateCourse(Integer courseId, CourseUpdateDTO updateDTO) {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new RuntimeException("课程不存在"));
 
+        // 只更新非null的字段
+        if (updateDTO.getCourseName() != null) {
+            course.setCoursename(updateDTO.getCourseName());
+        }
+        if (updateDTO.getTeacher() != null) {
+            course.setTeacher(updateDTO.getTeacher());
+        }
+        if (updateDTO.getLocation() != null) {
+            course.setLocation(updateDTO.getLocation());
+        }
+        if (updateDTO.getElective() != null) {
+            course.setElective(updateDTO.getElective());
+        }
+
+        return courseRepository.save(course);
+    }
 }

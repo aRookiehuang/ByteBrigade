@@ -27,7 +27,7 @@ public class ExcelService {
                 .sheet()
                 .doRead();
 
-        // 按课程名称+教师分组，同一门课程的多个时间段会被分在一组
+        // 按课程名称+教师+课程地点+是否必修，同一门课程的多个时间段会被分在一组
         Map<String, List<CourseExcelDTO>> courseGroups = new HashMap<>();
         for (CourseExcelDTO excelDTO : allExcelData) {
             String courseKey = excelDTO.getCourseName() + "|" + excelDTO.getTeacher()+ "|" +excelDTO.getLocation()+ "|" +excelDTO.getElective();

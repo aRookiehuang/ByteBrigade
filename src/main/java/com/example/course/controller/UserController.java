@@ -4,6 +4,7 @@ import com.example.course.pojo.ResponseMessage;
 import com.example.course.pojo.User;
 import com.example.course.service.UserService;
 import com.example.course.util.JwtUtil;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,4 +29,6 @@ public class UserController {
             return new ResponseMessage<>(401, "用户名或密码错误", null);
         }
     }
+
+
 }

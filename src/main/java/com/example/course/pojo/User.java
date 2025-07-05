@@ -5,6 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +17,7 @@ public class User {
 
     @Id // 标记这是主键字段
     @Column(name = "user_id", length = 20) // 映射到 'user_id' 列，并指定长度
-
+    @NotEmpty
     private String userId;
 
     @Column(name = "user_name")
@@ -23,6 +26,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "avatar_path")
+    private String avatarPath;
     // --- 关系映射 ---
 
     // 多对多关系：一个用户可以选择多门课程
@@ -71,5 +76,13 @@ public class User {
 
     public void setCourses(Set<Course> courses) {
         this.courses = courses;
+    }
+
+    public String getAvatarPath() {
+        return avatarPath;
+    }
+
+    public void setAvatarPath(String avatarPath) {
+        this.avatarPath = avatarPath;
     }
 }

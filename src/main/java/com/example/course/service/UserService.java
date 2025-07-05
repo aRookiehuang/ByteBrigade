@@ -79,4 +79,24 @@ public class UserService
 
         return avatarFile;
     }
+
+    @Transactional
+    public User updateUserName(String userId, String newUserName) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("用户不存在"));
+
+        // 验证用户名长度（可根据需要调整）
+        if (newUserName.length() > 50) {
+            throw new RuntimeException("用户名长度不能超过50个字符");
+        }
+
+        user.setUserName(newUserName);
+        return userRepository.save(user);
+    }
+    @Transactional
+    public User getUserName(String userId){
+        User user=userRepository.findById(userId)
+                .orElseThrow(()->new RuntimeException("用户不存在"));
+        return user;
+    }
 }

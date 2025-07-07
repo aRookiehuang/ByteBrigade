@@ -1,13 +1,18 @@
-package com.example.course;
+package com.example.course.util;
 
 
+import com.example.course.interceptor.LoginInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+    @Autowired
+    private LoginInterceptor loginInterceptor;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -22,5 +27,15 @@ public class WebConfig implements WebMvcConfigurer {
         // 将 /avatars/** 的请求映射到 E:/avator/ 目录
         registry.addResourceHandler("/avatars/**")
                 .addResourceLocations("file:E:/avator/");
+    }
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        // 添加拦截器，并配置规则
+        //只放行登录注册，其他全部拦截
+        registry.addInterceptor(loginInterceptor)
+                // 拦截所有 /user/ 下的路径
+                .addPathPatterns("/user/**","/course/**")
+                // 但是，放行登录和注册接口
+                .excludePathPatterns("/login", "/login/register");
     }
 }

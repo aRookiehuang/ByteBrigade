@@ -17,7 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CourseService {
@@ -31,6 +33,8 @@ public class CourseService {
 
     @Autowired
     UserService userService;
+    @Autowired
+    AIService aiService;
 
     @Transactional
     public Course add_course(CourseInsertDTO courseInsertDTO){
@@ -168,5 +172,50 @@ public class CourseService {
         }
 
         return courseRepository.save(course);
+    }
+
+    public Map<String, String> getAIStudySuggestion(String userId, int week, int dayOfWeek) {
+        // 获取用户当天的课程安排
+        List<CourseWeekDTO> weekCourses = getCoursesByWeek(userId, week);
+
+        // 过滤出今天的课程
+        List<CourseWeekDTO> todayCourses = weekCourses.stream()
+                .filter(course -> course.getTimeSlots().stream()
+                        .anyMatch(slot -> slot.getDayOfweek() == dayOfWeek))
+                .toList();
+
+        // 构建课表描述
+        StringBuilder scheduleDescription = new StringBuilder();
+        scheduleDescription.append("今天是第").append(week).append("周，星期").append(getDayName(dayOfWeek)).append("\n");
+        scheduleDescription.append("课程安排：\n");
+
+        if (todayCourses.isEmpty()) {
+            scheduleDescription.append("今天没有课程安排");
+        } else {
+            for (CourseWeekDTO course : todayCourses) {
+                scheduleDescription.append("- ").append(course.getCoursename())
+                        .append("（").append(course.getTeacher()).append("）")
+                        .append(" 地点：").append(course.getLocation());
+                if (course.getElective()) {
+                    scheduleDescription.append(" [选修课]");
+                }
+                scheduleDescription.append("\n");
+            }
+        }
+
+        // 调用AI服务获取建议
+        String aiSuggestion = aiService.getStudySuggestion(scheduleDescription.toString());
+
+        Map<String, String> result = new HashMap<>();
+        result.put("suggestion", aiSuggestion);
+        result.put("courseCount", String.valueOf(todayCourses.size()));
+        result.put("scheduleInfo", scheduleDescription.toString());
+
+        return result;
+    }
+
+    private String getDayName(int dayOfWeek) {
+        String[] days = {"", "一", "二", "三", "四", "五", "六", "日"};
+        return days[dayOfWeek];
     }
 }

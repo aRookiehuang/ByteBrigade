@@ -92,4 +92,16 @@ public class CourseController {
             return new ResponseMessage<>(500, "导入失败: " + e.getMessage(), null);
         }
     }
+    @GetMapping("/ai-suggestion/{userId}/{week}")
+    public ResponseMessage<Map<String, String>> getAIStudySuggestion(
+            @PathVariable String userId,
+            @PathVariable int week) {
+        try {
+            int dayOfWeek=java.time.LocalDate.now().getDayOfWeek().getValue();
+            Map<String, String> suggestion = courseService.getAIStudySuggestion(userId, week, dayOfWeek);
+            return ResponseMessage.success(suggestion);
+        } catch (Exception e) {
+            return new ResponseMessage<>(500, "AI建议生成失败: " + e.getMessage(), null);
+        }
+    }
 }

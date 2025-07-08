@@ -23,19 +23,19 @@ public class UserController {
         return ResponseMessage.success(newuser);
     }
     @PostMapping
-    public ResponseMessage<String> getUser(@RequestBody User user){
+    public ResponseMessage<User> getUser(@RequestBody User user){
         User existingUser = userService.getByUserIdAndPassword(user.getUserId(), user.getPassword());
         if (existingUser != null) {
             // 2. 登录成功，生成JWT Token
-            Map<String, Object> claims = new HashMap<>();
-            claims.put("userId", existingUser.getUserId());
-            // 你也可以放入其他信息，比如用户角色
-            // claims.put("role", existingUser.getRole());
-
-            String token = JwtUtil.createToken(claims); // 使用我们之前定义的工具类
+//            Map<String, Object> claims = new HashMap<>();
+//            claims.put("userId", existingUser.getUserId());
+//            // 你也可以放入其他信息，比如用户角色
+//            // claims.put("role", existingUser.getRole());
+//
+//            String token = JwtUtil.createToken(claims); // 使用我们之前定义的工具类
 
             // 3. 将 Token 作为成功结果返回
-            return ResponseMessage.success(token);
+            return ResponseMessage.success(existingUser);
         } else {
             // 登录失败的逻辑不变
             return new ResponseMessage<>(401, "用户名或密码错误", null);

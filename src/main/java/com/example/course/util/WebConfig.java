@@ -25,17 +25,18 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // 将 /avatars/** 的请求映射到 E:/avator/ 目录
+        // 使用配置化的路径映射
         registry.addResourceHandler("/avatars/**")
-                .addResourceLocations("file:E:/avator/");
+                .addResourceLocations("file:./uploads/avatars/");
     }
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        // 添加拦截器，并配置规则
-        //只放行登录注册，其他全部拦截
-        registry.addInterceptor(loginInterceptor)
-                // 拦截所有 /user/ 下的路径
-                .addPathPatterns("/user/**","/course/**")
-                // 但是，放行登录和注册接口
-                .excludePathPatterns("/login", "/login/register");
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        // 添加拦截器，并配置规则
+//        //只放行登录注册，其他全部拦截
+//        registry.addInterceptor(loginInterceptor)
+//                // 拦截所有 /user/ 下的路径
+//                .addPathPatterns("/user/**","/course/**")
+//                // 但是，放行登录和注册接口
+//                .excludePathPatterns("/login", "/login/register");
+//    }
 }
